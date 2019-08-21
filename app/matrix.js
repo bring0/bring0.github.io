@@ -17,6 +17,7 @@ function getRandomNumber(lim) {
     return Math.floor(Math.random() * (lim + 1));
 }
 $(document).ready(function () {
+
     var gridSize = 75;
 
     var clockCount = 0;
@@ -186,13 +187,18 @@ $(document).ready(function () {
         //}
 
     }
-    animals.initialPopulate(2, 15);
-    setTimeout(function () {
-        setInterval(function () {
+    animals.initialPopulate(9, 15);
+
+    var cycleVar;
+    $("#stopCycle").click(function () {
+        clearInterval(cycleVar);
+    })
+    $("#startCycle").click(function(){
+        cycleVar = setInterval(function () {
             performCycle();
             animals.render();
-        }, 100);
-    }, 1000);
+        }, 250);
+    });
     // setTimeout(function() {
     // }, 500);
 

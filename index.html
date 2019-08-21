@@ -4,7 +4,9 @@
 <head>
   <title>Bootstrap 3 Template</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <!-- Bootstrap core CSS -->
   <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
@@ -30,7 +32,17 @@
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
       </div> -->
-    <div id="matrixHere"></div>
+    <div class="row">
+      <div id="matrixHere"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-5">
+          <button class="btn btn-danger" id="stopCycle">Stop</button>
+      </div>
+      <div class="col-xs-5 col-xs-offset-2">
+          <button class="btn btn-info" id="startCycle">Start</button>
+      </div>
+    </div>
   </div>
   <!-- /.container -->
 
@@ -39,7 +51,7 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="lib/taffy.js"></script>
-  <script src="matrix.js"></script>
+  <script src="app/matrix.js"></script>
 
 </body>
 
