@@ -14,7 +14,7 @@ function drawTable(size) {
 function getRandomNumber(lim) {
     return Math.floor(Math.random() * (lim + 1));
 }
-$(document).ready(function() {
+$(document).ready(function () {
     var gridSize = 75;
 
     var clockCount = 0;
@@ -31,7 +31,7 @@ $(document).ready(function() {
                 x: xVal,
                 y: yVal
             }).count() !== 0) {
-                console.log(`${ocean({
+            console.log(`${ocean({
                     x: xVal,
                     y: yVal
                 }).first().type} is in the way`);
@@ -64,19 +64,19 @@ $(document).ready(function() {
                 //$(`#${randomX}-${randomY}`).css("background-color", "red");
             }
         },
-        render: function() {
+        render: function () {
             // var sharks = ocean({
             //     type: "shark"
             // }).get();
             // console.log(sharks);
             ocean({
                 type: "shark"
-            }).each(function(shark, recordnumber) {
+            }).each(function (shark, recordnumber) {
                 $(`#${shark["x"]}-${shark["y"]}`).css("background-color", "red");
             });
             ocean({
                 type: "fish"
-            }).each(function(fish, recordnumber) {
+            }).each(function (fish, recordnumber) {
                 $(`#${fish["x"]}-${fish["y"]}`).css("background-color", "green");
             });
         }
@@ -94,9 +94,10 @@ $(document).ready(function() {
         });
         //$(`#${xVal}-${yVal}`).fadeOut(10).fadeIn(00);
     }
-    function getRandomDirection(xVal, yVal){
+
+    function getRandomDirection(xVal, yVal) {
         var num = getRandomNumber(3);
-        switch (num){
+        switch (num) {
             case 0:
                 //up
                 //console.log("up");
@@ -110,11 +111,12 @@ $(document).ready(function() {
                 //console.log("left");
                 return [(xVal - 1), (yVal)];
             case 3:
-            //console.log("right");
-            return [(xVal + 1), (yVal)];
-            
+                //console.log("right");
+                return [(xVal + 1), (yVal)];
+
         }
     }
+
     function performCycle() {
         //breed fish
         //for(cnt = 0; cnt < iterations; cnt++){
@@ -123,7 +125,7 @@ $(document).ready(function() {
         if (clockCount % fishBreed == 0) {
             ocean({
                 type: "fish"
-            }).each(function(fish, recordnumber) {
+            }).each(function (fish, recordnumber) {
                 //$(`#${fish["x"]}-${fish["y"]}`).css("background-color", "green");
                 //todo improve finding positions
                 var randomDirection = getRandomDirection(fish["x"], fish["y"]);
@@ -150,7 +152,7 @@ $(document).ready(function() {
         }
         ocean({
             type: "shark"
-        }).each(function(shark, recordnumber) {
+        }).each(function (shark, recordnumber) {
             //$(`#${fish["x"]}-${fish["y"]}`).css("background-color", "green");
             //todo improve finding positions
             var randomDirection = getRandomDirection(shark["x"], shark["y"]);
@@ -159,22 +161,32 @@ $(document).ready(function() {
                 //console.log(ocean(shark["___id"]).first());
                 var id = shark["___id"];
                 // console.log(id);
-                ocean().filter({type: "shark", x : shark["x"], y : shark["y"]}).update({x : randomDirection[0], y : randomDirection[1]});
+                ocean().filter({
+                    type: "shark",
+                    x: shark["x"],
+                    y: shark["y"]
+                }).update({
+                    x: randomDirection[0],
+                    y: randomDirection[1]
+                });
                 $(`#${shark["x"]}-${shark["y"]}`).css("background-color", "blue");
-               // ocean({type: "shark", x : shark["x"], y : shark["y"]}).remove();
+                // ocean({type: "shark", x : shark["x"], y : shark["y"]}).remove();
             } else {
-                var oType = ocean({ x : randomDirection[0], y : randomDirection[1]}).select("type");
+                var oType = ocean({
+                    x: randomDirection[0],
+                    y: randomDirection[1]
+                }).select("type");
                 console.log(`shark obstructed, ${oType} in way`);
             }
         });
-       
+
 
         //}
 
     }
     animals.initialPopulate(2, 15);
-    setTimeout(function() {
-        setInterval(function() {
+    setTimeout(function () {
+        setInterval(function () {
             performCycle();
             animals.render();
         }, 100);
