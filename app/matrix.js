@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 function drawTable(size) {
     var tableString = "<table>";
     for (var y = 0; y <= size; y++) {
