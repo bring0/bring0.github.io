@@ -22,6 +22,7 @@ $(document).ready(function () {
 
     var clockCount = 0;
     var fishBreed = 7;
+    var fishDieAfterBreedingNumber = 2;
     var sharkBreed = 20;
     $("#matrixHere").append(drawTable(gridSize));
     var ocean = TAFFY([]);
@@ -80,7 +81,13 @@ $(document).ready(function () {
             ocean({
                 type: "fish"
             }).each(function (fish, recordnumber) {
-                $(`#${fish["x"]}-${fish["y"]}`).css("background-color", "green");
+                if(fish.age > fishDieAfterBreedingNumber){
+                    $(`#${fish["x"]}-${fish["y"]}`).css("background-color", "blue");
+                    ocean(fish).remove();
+                } else {
+                    $(`#${fish["x"]}-${fish["y"]}`).css("background-color", "green");
+                }
+               
             });
         }
     };
@@ -93,7 +100,8 @@ $(document).ready(function () {
             name: `${typeName}_${(countOfType + 1)}`,
             type: typeName,
             x: xVal,
-            y: yVal
+            y: yVal,
+            age: 0
         });
         //$(`#${xVal}-${yVal}`).fadeOut(10).fadeIn(00);
     }
@@ -131,15 +139,18 @@ $(document).ready(function () {
             }).each(function (fish, recordnumber) {
                 //$(`#${fish["x"]}-${fish["y"]}`).css("background-color", "green");
                 //todo improve finding positions
-                var randomDirection = getRandomDirection(fish["x"], fish["y"]);
-                if (oceanIsClear(randomDirection[0], randomDirection[1])) {
-                    //console.log(`breeding fish ${randomDirection[0]} ${randomDirection[1]}`);
-                    insertAnimal("fish", randomDirection[0], randomDirection[1]);
-                } else {
-                    //console.log("ocean aint clear");
-                }
+                fish.age = (fish.age + 1);
+               
+                    var randomDirection = getRandomDirection(fish["x"], fish["y"]);
+                    if (oceanIsClear(randomDirection[0], randomDirection[1])) {
+                        //console.log(`breeding fish ${randomDirection[0]} ${randomDirection[1]}`);
+                        insertAnimal("fish", randomDirection[0], randomDirection[1]);
+                    } else {
+                        //console.log("ocean aint clear");
+                    }
+               
             });
-        } else {
+        } //else {
             // ocean({
             //     type: "fish"
             // }).each(function(fish, recordnumber) {
@@ -152,7 +163,7 @@ $(document).ready(function () {
             //         console.log("ocean aint clear");
             //     }
             // });
-        }
+        //}
         ocean({
             type: "shark"
         }).each(function (shark, recordnumber) {
@@ -187,7 +198,7 @@ $(document).ready(function () {
         //}
 
     }
-    animals.initialPopulate(9, 15);
+    animals.initialPopulate(1, 5);
 
     var cycleVar;
     $("#stopCycle").click(function () {
