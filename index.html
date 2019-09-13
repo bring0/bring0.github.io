@@ -96,6 +96,42 @@
 
     sea[50][70] = _shark;
     drawSea();
+
+    var seaManager = {
+        sharx: [],
+        fish: [],
+        populate: function () {
+            for (var i = 0; i < 100; i++) {
+                for (var y = 0; y < 100; y++) {
+                    switch (sea[y][i]) {
+                        case _shark:
+                            seaManager.sharx.push({
+                                "i": i,
+                                "y": y
+                            });
+                            break;
+                        case _fish:
+                            seaManager.fish.push({
+                                "i": i,
+                                "y": y
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+            }
+        },
+        log : function(){
+            console.log(seaManager.sharx);
+            console.log(seaManager.fish);
+        },
+        nextMove : function(){
+            
+        }
+
+    }
 </script>
 
 </html>
