@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>yetanothergameoflife</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Bootstrap core CSS -->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        tr,
+        td {
+            border: 0.25px solid black;
+            height: 5px !important;
+            width: 5px !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="matrixHere"></div>
+    <canvas id="myCanvas" width="1000" height="1000" style="border:1px solid #c3c3c3;">
+        Your browser does not support the canvas element.
+    </canvas>
+
+
+</body>
+<script type="text/javascript">
+    //colors
+    var _seaColor = "#80b3ff";
+    var _fishColor = "#70db70";
+    var _sharkColor = "#ff3333";
+
+    var _sea = 0;
+    var _fish = 1;
+    var _shark = 2;
+
+    //size
+    var _gridUnit = 10;
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    var sea = [];
+
+
+
+    // ctx.fillStyle = "#FF0000";
+    // ctx.fillRect(0, 0, 150, 75);
+    // ctx.fillStyle = "#000000";
+    //ctx.fillRect(500, 500, 150, 150);
+    initSea();
+    // populateArea(50, 70, _fishColor);
+
+
+    function initSea() {
+        for (var i = 0; i < 100; i++) {
+            var row = [];
+            for (var y = 0; y < 100; y++) {
+                row.push(_sea);
+
+                //populateArea(y, i, _seaColor);
+            }
+            sea.push(row);
+        }
+    }
+
+    function drawSea() {
+        for (var i = 0; i < 100; i++) {
+            for (var y = 0; y < 100; y++) {
+                populateArea(y, i, sea[y][i]);
+            }
+        }
+    }
+
+    function populateArea(x, y, color) {
+        if (color === 0) {
+            ctx.fillStyle = _seaColor;
+
+        } else if (color === 1) {
+            ctx.fillStyle = _fishColor;
+
+        } else if (color === 2) {
+            ctx.fillStyle = _sharkColor;
+
+        }
+        ctx.fillRect((_gridUnit * x), (_gridUnit * y), _gridUnit, _gridUnit);
+    }
+
+    sea[50][70] = _shark;
+    drawSea();
+
+    var seaManager = {
+        sharx: [],
+        fish: [],
+        populate: function () {
+            for (var i = 0; i < 100; i++) {
+                for (var y = 0; y < 100; y++) {
+                    switch (sea[y][i]) {
+                        case _shark:
+                            seaManager.sharx.push({
+                                "i": i,
+                                "y": y
+                            });
+                            break;
+                        case _fish:
+                            seaManager.fish.push({
+                                "i": i,
+                                "y": y
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+            }
+        },
+        log : function(){
+            console.log(seaManager.sharx);
+            console.log(seaManager.fish);
+        },
+        nextMove : function(){
+            
+        }
+
+    }
+</script>
+
+</html>
